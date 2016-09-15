@@ -1,4 +1,6 @@
-# Basic Algorithms and Data Structures Implementation
+# Algorithms Implementation
 Merge Sort
 
 Quick Sort
+
+# Data Structures Implementation
