@@ -13,7 +13,6 @@ def quick_sort(array, start, end):
 
 # pivot is the end
 def partition(array, start, end):
-    cur = start
     wall = start
     for cur in range(start, end):
         if array[cur] < array[end]:
@@ -22,6 +21,7 @@ def partition(array, start, end):
     array[wall], array[end] = array[end], array[wall]
     return wall
 
-a = [random.randint(0, 1000000) for i in range(0,1000000)]
+a = [random.randint(0, 100) for i in range(0,100)]
 quick_sort(a, 0, len(a)-1)
+# print(a)
 print("--- %s seconds ---" % (time.time() - start_time))
