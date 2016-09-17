@@ -39,7 +39,7 @@ def quickSort(arr,low,high):
         quickSort(arr, low, pi-1)
         quickSort(arr, pi+1, high)
 
-a = [random.randint(0, 1000000) for i in range(0,1000000)]
+a = [random.randint(0, 500000) for i in range(0,500000)]
 # print(a)
 # merge_sort(a)
 quickSort(a, 0, len(a)-1)
