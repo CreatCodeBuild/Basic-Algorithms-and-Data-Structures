@@ -12,7 +12,6 @@ class Node():
 		self.right = None
 		self.left = None
 		self.height = None
-		self.size = None
 
 	def print(self):
 		print(self.value)
@@ -153,14 +152,18 @@ class AVLTree():
 			AVLTree.post_order_on_node(node.right)
 			node.print()
 
-
-	def level_order(self):
+	# todo: add an apply function that apply an operation on node at each step of traversal
+	# todo: level_order(self, apply)
+	# this BFS is the general way of BFS in a graph
+	# not limited to a tree level order
+	def level_order(self, apply=None):
 		if self.root:
 			q = deque()
 			q.append(self.root)
 			while q:
 				node = q.popleft()
-				node.print()
+				# if no apply function is specified, print the node
+				apply(node) if apply else node.print()
 				if node.left:
 					q.append(node.left)
 				if node.right:
@@ -195,7 +198,7 @@ if __name__ == '__main__':
 	print('Post order')
 	tree.post_order()
 	print('Level order:')
-	tree.level_order()
+	tree.level_order(Node.print)
 	print(Tree.is_bst(tree))
 
 print("--- %s seconds ---" % (time.time() - start_time))
