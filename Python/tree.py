@@ -1,6 +1,6 @@
 import random
 import time
-
+from collections import deque
 
 class Node():
 	def __init__(self, value):
@@ -16,13 +16,32 @@ class Node():
 
 # todo: inheritance of tree
 class Tree():
-	pass
+	@staticmethod
+	def is_bst(tree):
+		def is_bst(root):
+			ret = True
+			if root.left:
+				if root.left.value <= root.value:
+					ret = ret and is_bst(root.left)
+				else:
+					print(root.left.value, root.value)
+					return False
+			if root.right:
+				if root.right.value > root.value:
+					ret = ret and is_bst(root.right)
+				else:
+					return False
+			return ret
+		if tree.root:
+			return is_bst(tree.root)
+		else:
+			return True
 
 class AVLTree():
 	def __init__(self):
 		self.root = None
 
-	def left_rotate(self, root):
+	def left_rotate(root):
 		'''
 		@root: rotation root, not the root of the whole tree
 		'''
@@ -34,7 +53,7 @@ class AVLTree():
 		newRoot.height = AVLTree.set_height(newRoot)
 		return newRoot;
 
-	@classmethod
+	@staticmethod
 	def right_rotate(root):
 		newRoot = root.left
 		root.left = root.left.right
@@ -43,21 +62,24 @@ class AVLTree():
 		newRoot.height = AVLTree.set_height(newRoot)
 		return newRoot
 
-	@classmethod
+	@staticmethod
 	def set_height(node):
 		if node:
 			return 1 + max(
-				root.left.height if node.left is not None else 0,
-				root.right.height if node.right is not None else 0)
+				node.left.height if node.left is not None else 0,
+				node.right.height if node.right is not None else 0)
+		print('return 0?')
 		return 0
 
-	@classmethod
+	@staticmethod
 	def height(node):
 		return node.height if node else 0
 
 	def insert(self, node):
 		def insert_on_node(root, new):
 			if root is None:
+				new.height = AVLTree.set_height(new)
+				print(new.height)
 				return new
 			if root.value <= new.value:
 				root.right = insert_on_node(root.right, new)
@@ -95,41 +117,53 @@ class AVLTree():
 		return AVLTree.height(nodeLeft) - AVLTree.height(nodeRight)
 
 	def in_order(self):
-		AVLTree.in_order_on_node(self.root.left)
-		self.root.print()
-		AVLTree.in_order_on_node(self.root.right)
+		AVLTree.in_order_on_node(self.root)
 
-	@classmethod
+	@staticmethod
 	def in_order_on_node(node):
-		AVLTree.in_order_on_node(node.left)
-		node.print()
-		AVLTree.in_order_on_node(node.right)
+		if node:
+			AVLTree.in_order_on_node(node.left)
+			node.print()
+			AVLTree.in_order_on_node(node.right)
 
 	def pre_order(self):
-		self.root.print()
-		AVLTree.in_order_on_node(self.root.left)
-		AVLTree.in_order_on_node(self.root.right)
+		AVLTree.pre_order_on_node(self.root)
 
-	@classmethod
-	def pre_order_on_node(ndoe):
-		node.print()
-		AVLTree.pre_order_on_node(node.left)
-		AVLTree.pre_order_on_node(node.right)
+	@staticmethod
+	def pre_order_on_node(node):
+		if node:
+			node.print()
+			AVLTree.pre_order_on_node(node.left)
+			AVLTree.pre_order_on_node(node.right)
 
 	def post_order(self):
-		AVLTree.post_order_on_node(self.root.left)
-		AVLTree.post_order_on_node(self.root.right)
-		self.root.print()
+		AVLTree.post_order_on_node(self.root)
 
-	@classmethod
+	@staticmethod
 	def post_order_on_node(node):
-		AVLTree.post_order_on_node(node.left)
-		AVLTree.post_order_on_node(node.right)
-		node.print()
+		if node:
+			if node.value == 17:
+				print('17', node.left)
+				print('17', node.right)
+			AVLTree.post_order_on_node(node.left)
+			AVLTree.post_order_on_node(node.right)
+			node.print()
 
 
 	def level_order(self):
-		pass
+		if self.root:
+			q = deque()
+			q.append(self.root)
+			while q:
+				node = q.popleft()
+				node.print()
+				if node.left:
+					q.append(node.left)
+				if node.right:
+					q.append(node.right)
+		else:
+			print('This tree is empty')
+
 
 start_time = time.time()
 if __name__ == '__main__':
@@ -152,9 +186,12 @@ if __name__ == '__main__':
 	tree.insert(node7)
 	tree.insert(node8)
 
-	tree.in_order()
-	tree.pre_order()
+	# print('In order:')
+	# tree.in_order()
+	print('Post order')
 	tree.post_order()
+	print('Level order:')
 	tree.level_order()
+	print(Tree.is_bst(tree))
 
 print("--- %s seconds ---" % (time.time() - start_time))
