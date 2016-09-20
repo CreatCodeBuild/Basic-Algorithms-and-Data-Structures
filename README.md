@@ -4,3 +4,5 @@ Merge Sort
 Quick Sort
 
 # Data Structures
+##AVL Tree
+AVL Tree is a flavor of self-balancing tree
