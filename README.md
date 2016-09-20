@@ -1,4 +1,4 @@
-They are not just proof of concept rountines that only operate on integers. They are generic.
+They are generic rountines, not just proof of concept
 
 # Algorithms
 Merge Sort
