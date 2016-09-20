@@ -84,6 +84,9 @@ class Tree():
 	# this BFS is the general way of BFS in a graph
 	# not limited to a tree level order
 	def level_order(self, apply=None):
+		'''
+		@apply: a function that is called at each step of traversal, caller scope has to implement it
+		'''
 		if self.root:
 			q = deque()
 			q.append(self.root)
@@ -98,7 +101,12 @@ class Tree():
 		else:
 			print('This tree is empty')
 
-class AVLTree(Tree):
+
+class BST(Tree):
+	pass
+
+
+class AVLTree(BST):
 	def __init__(self):
 		self.root = None
 
