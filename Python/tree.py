@@ -116,8 +116,11 @@ class AVLTree():
 	def search():
 		pass
 
+	# todo: change the name to height compare
 	def balance(self, nodeLeft, nodeRight):
 		return AVLTree.height(nodeLeft) - AVLTree.height(nodeRight)
+
+	# todo: add a balance function
 
 	def in_order(self):
 		AVLTree.in_order_on_node(self.root)
@@ -152,8 +155,6 @@ class AVLTree():
 			AVLTree.post_order_on_node(node.right)
 			node.print()
 
-	# todo: add an apply function that apply an operation on node at each step of traversal
-	# todo: level_order(self, apply)
 	# this BFS is the general way of BFS in a graph
 	# not limited to a tree level order
 	def level_order(self, apply=None):
