@@ -40,7 +40,65 @@ class Tree():
 		else:
 			return True
 
-class AVLTree():
+	# todo: should check None at parent level to avoid unnecessary function call
+	# todo: implement iterative(heep space stack) DFS
+	def in_order(self):
+		if self.root:
+			Tree.in_order_on_node(self.root)
+		else:
+			print('This tree is empty')
+
+	@staticmethod
+	def in_order_on_node(node):
+		if node:
+			Tree.in_order_on_node(node.left)
+			node.print()
+			Tree.in_order_on_node(node.right)
+
+	def pre_order(self):
+		if self.root:
+			Tree.pre_order_on_node(self.root)
+		else:
+			print('This tree is empty')
+
+	@staticmethod
+	def pre_order_on_node(node):
+		if node:
+			node.print()
+			Tree.pre_order_on_node(node.left)
+			Tree.pre_order_on_node(node.right)
+
+	def post_order(self):
+		if self.root:
+			Tree.post_order_on_node(self.root)
+		else:
+			print('This tree is empty')
+
+	@staticmethod
+	def post_order_on_node(node):
+		if node:
+			Tree.post_order_on_node(node.left)
+			Tree.post_order_on_node(node.right)
+			node.print()
+
+	# this BFS is the general way of BFS in a graph
+	# not limited to a tree level order
+	def level_order(self, apply=None):
+		if self.root:
+			q = deque()
+			q.append(self.root)
+			while q:
+				node = q.popleft()
+				# if no apply function is specified, print the node
+				apply(node) if apply else node.print()
+				if node.left:
+					q.append(node.left)
+				if node.right:
+					q.append(node.right)
+		else:
+			print('This tree is empty')
+
+class AVLTree(Tree):
 	def __init__(self):
 		self.root = None
 
@@ -122,55 +180,7 @@ class AVLTree():
 
 	# todo: add a balance function
 
-	def in_order(self):
-		AVLTree.in_order_on_node(self.root)
 
-	@staticmethod
-	def in_order_on_node(node):
-		if node:
-			AVLTree.in_order_on_node(node.left)
-			node.print()
-			AVLTree.in_order_on_node(node.right)
-
-	def pre_order(self):
-		AVLTree.pre_order_on_node(self.root)
-
-	@staticmethod
-	def pre_order_on_node(node):
-		if node:
-			node.print()
-			AVLTree.pre_order_on_node(node.left)
-			AVLTree.pre_order_on_node(node.right)
-
-	def post_order(self):
-		AVLTree.post_order_on_node(self.root)
-
-	@staticmethod
-	def post_order_on_node(node):
-		if node:
-			if node.value == 17:
-				print('17', node.left)
-				print('17', node.right)
-			AVLTree.post_order_on_node(node.left)
-			AVLTree.post_order_on_node(node.right)
-			node.print()
-
-	# this BFS is the general way of BFS in a graph
-	# not limited to a tree level order
-	def level_order(self, apply=None):
-		if self.root:
-			q = deque()
-			q.append(self.root)
-			while q:
-				node = q.popleft()
-				# if no apply function is specified, print the node
-				apply(node) if apply else node.print()
-				if node.left:
-					q.append(node.left)
-				if node.right:
-					q.append(node.right)
-		else:
-			print('This tree is empty')
 
 
 start_time = time.time()
