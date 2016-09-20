@@ -1,3 +1,7 @@
+'''
+This module is just a proof of concept. Should not use it in production, unless you want to
+'''
+
 import random
 import time
 from collections import deque
