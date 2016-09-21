@@ -16,6 +16,13 @@ class Node():
 	def print(self):
 		print(self.value)
 
+	def set_height(self):
+		self.height = 1 + max(Node.height(self.left), Node.height(self.right))
+
+	@staticmethod
+	def height(node):
+		return node.height if node else 0
+
 
 # todo: inheritance of tree
 class Tree():
@@ -107,8 +114,9 @@ class BST(Tree):
 
 
 class AVLTree(BST):
-	def __init__(self):
+	def __init__(self, compare):
 		self.root = None
+		self.compare = compare
 
 	def left_rotate(root):
 		'''
@@ -118,8 +126,8 @@ class AVLTree(BST):
 		# root.right.left is the next bigger node that can be used as the right of the old root
 		root.right = root.right.left
 		newRoot.left = root
-		root.height = AVLTree.set_height(root)
-		newRoot.height = AVLTree.set_height(newRoot)
+		root.set_height()
+		newRoot.set_height()
 		return newRoot;
 
 	@staticmethod
@@ -127,49 +135,43 @@ class AVLTree(BST):
 		newRoot = root.left
 		root.left = root.left.right
 		newRoot.right = root
-		root.height = AVLTree.set_height(root)
-		newRoot.height = AVLTree.set_height(newRoot)
+		root.set_height()
+		newRoot.set_height()
 		return newRoot
 
 	@staticmethod
-	def set_height(node):
-		if node:
-			return 1 + max(
-				node.left.height if node.left is not None else 0,
-				node.right.height if node.right is not None else 0)
-		print('return 0?')
-		return 0
+	def balance_check(node):
+		return Node.height(node.left) - Node.height(node.right)
 
 	@staticmethod
-	def height(node):
-		return node.height if node else 0
+	def balancing(node):
+		balance = AVLTree.balance_check(node)
+		if balance > 1:
+			if Node.height(node.left.left) >= Node.height(node.left.right):
+				node = AVLTree.right_rotate(node)
+			else:
+				node.left = AVLTree.left_rotate(node.left)
+				node = AVLTree.right_rotate(node)
+		elif balance < -1:
+			if Node.height(node.right.right) >= Node.height(node.right.left):
+				node = AVLTree.left_rotate(node)
+			else:
+				node.right = AVLTree.right_rotate(node.right);
+				node = AVLTree.left_rotate(node)
+		else:
+			node.set_height()
+		return node
 
 	def insert(self, node):
 		def insert_on_node(root, new):
 			if root is None:
-				new.height = AVLTree.set_height(new)
-				print(new.height)
+				new.set_height()
 				return new
-			if root.value <= new.value:
+			if new.value > root.value:
 				root.right = insert_on_node(root.right, new)
 			else:
 				root.left = insert_on_node(root.left, new)
-			balance = self.balance(root.left, root.right)
-			if balance > 1:
-				if AVLTree.height(root.left.left) >= AVLTree.height(root.left.right):
-					root = AVLTree.right_rotate(root)
-				else:
-					root.left = AVLTree.left_rotate(root.left)
-					root = AVLTree.right_rotate(root)
-			elif balance < -1:
-				if AVLTree.height(root.right.right) >= AVLTree.height(root.right.left):
-					root = AVLTree.left_rotate(root);
-				else:
-					root.right = AVLTree.right_rotate(root.right);
-					root = AVLTree.left_rotate(root)
-			else:
-				root.height = AVLTree.set_height(root)
-			return root
+			return AVLTree.balancing(root)
 
 		self.root = insert_on_node(self.root, node)
 
@@ -182,18 +184,12 @@ class AVLTree(BST):
 	def search():
 		pass
 
-	# todo: change the name to height compare
-	def balance(self, nodeLeft, nodeRight):
-		return AVLTree.height(nodeLeft) - AVLTree.height(nodeRight)
-
-	# todo: add a balance function
-
 
 
 
 start_time = time.time()
 if __name__ == '__main__':
-	tree = AVLTree()
+	tree = AVLTree(lambda a, b: a > b)
 	node1 = Node(-10)
 	node2 = Node(2)
 	node3 = Node(13)
@@ -212,12 +208,12 @@ if __name__ == '__main__':
 	tree.insert(node7)
 	tree.insert(node8)
 
-	# print('In order:')
-	# tree.in_order()
-	print('Post order')
-	tree.post_order()
-	print('Level order:')
-	tree.level_order(Node.print)
-	print(Tree.is_bst(tree))
+	print('In order:')
+	tree.in_order()
+	# print('Post order')
+	# tree.post_order()
+	# print('Level order:')
+	# tree.level_order(Node.print)
+	# print(Tree.is_bst(tree))
 
 print("--- %s seconds ---" % (time.time() - start_time))
