@@ -7,9 +7,11 @@ https://github.com/CreatCodeBuild/CreatCodeBuild.github.io/tree/master/js
 JavaScript is more interesting
 
 # Algorithms
-Merge Sort
-
-Quick Sort
+### Sort
+Merge Sort  
+Quick Sort  
+Heap Sort(not implemented)  
+Selection Sort(not implemented)
 
 # Data Structures
 ##AVL Tree
