@@ -10,9 +10,28 @@ JavaScript is more interesting
 ### Sort
 Merge Sort  
 Quick Sort  
-Heap Sort(not implemented)  
-Selection Sort(not implemented)
+Heap Sort  
+Selection Sort  
+Insertion Sort  
+Radix Sort
+
+### Search
+Binary Search
 
 # Data Structures
-##AVL Tree
-AVL Tree is a flavor of self-balancing tree
+### Linked List
+Single Linked List
+Double Linked List
+Circular Linked List
+
+### Tree
+#### Binary Tree
+#### Binary Search Tree
+#### AVL Tree
+AVL Tree is a flavor of self-balancing tree  
+
+### Graph
+
+### Hash
+#### Hash Set
+#### Hash Table
