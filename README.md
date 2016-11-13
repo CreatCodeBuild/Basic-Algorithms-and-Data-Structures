@@ -7,10 +7,31 @@ https://github.com/CreatCodeBuild/CreatCodeBuild.github.io/tree/master/js
 JavaScript is more interesting
 
 # Algorithms
-Merge Sort
+### Sort
+Merge Sort  
+Quick Sort  
+Heap Sort  
+Selection Sort  
+Insertion Sort  
+Radix Sort
 
-Quick Sort
+### Search
+Binary Search
 
 # Data Structures
-##AVL Tree
-AVL Tree is a flavor of self-balancing tree
+### Linked List
+Single Linked List
+Double Linked List
+Circular Linked List
+
+### Tree
+#### Binary Tree
+#### Binary Search Tree
+#### AVL Tree
+AVL Tree is a flavor of self-balancing tree  
+
+### Graph
+
+### Hash
+#### Hash Set
+#### Hash Table
