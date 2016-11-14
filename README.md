@@ -4,19 +4,9 @@ Basic Algorithms and Data Structures 基础的算法与数据结构
 ### Sort
 Merge Sort  
 Quick Sort  
-Heap Sort  
-Selection Sort  
-Insertion Sort  
-Radix Sort
-
-### Search
-Binary Search
 
 # Data Structures
 ### Linked List
-Single Linked List
-Double Linked List
-Circular Linked List
 
 ### Tree
 #### Binary Tree
