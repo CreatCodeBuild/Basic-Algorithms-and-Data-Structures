@@ -47,25 +47,27 @@ namespace Tree {
 					return false;
 			}
 		}
-		void in_order() {
+
+		template<typename Function>
+		void in_order(Function apply) {
 			if(this->left != nullptr)
-				this->left->in_order();
-			cout << this->value << ' ';
+				this->left->in_order(apply);
+			apply(this);
 			if(this->right != nullptr)
-				this->right->in_order();
+				this->right->in_order(apply);
 		}
 		void pre_order() {
 			cout << this->value << ' ';
 			if(this->left != nullptr)
-				this->left->in_order();
+				this->left->pre_order();
 			if(this->right != nullptr)
-				this->right->in_order();
+				this->right->pre_order();
 		}
 		void post_order() {
 			if(this->left != nullptr)
-				this->left->in_order();
+				this->left->post_order();
 			if(this->right != nullptr)
-				this->right->in_order();
+				this->right->post_order();
 			cout << this->value << ' ';
 		}
 	};
@@ -85,8 +87,10 @@ namespace Tree {
 		bool find(int value) {
 			return this->root->find(value);
 		}
-		void in_order() {
-			this->root->in_order();
+
+		template<typename Function>
+		void in_order(Function apply) {
+			this->root->in_order(apply);
 			cout << '\n';
 		}
 		void pre_order() {

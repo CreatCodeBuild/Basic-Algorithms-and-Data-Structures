@@ -3,7 +3,7 @@
 import random
 import time
 
-start_time = time.time()
+
 def partition(arr,low,high):
     i = ( low-1 )         # index of smaller element
     pivot = arr[high]     # pivot
@@ -42,5 +42,6 @@ def quickSort(arr,low,high):
 a = [random.randint(0, 500000) for i in range(0,500000)]
 # print(a)
 # merge_sort(a)
+start_time = time.time()
 quickSort(a, 0, len(a)-1)
 print("--- %s seconds ---" % (time.time() - start_time))
